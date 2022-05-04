@@ -27,12 +27,12 @@ do
    # Pretend the TSV with all the (labelled) training data
    # is an 'Unlabelled pool (UPOOL)' from which we can ask for
    # subsets of data to be labelled by a human and returned to us
-   UPOOL_TSV=$"data/datasets/$DATASET/train.tsv"
+   UPOOL_TSV=$"data/datasets/$DATASET/datasets/train.tsv"
 
-   DEV_TSV=$"data/datasets/$DATASET/dev.tsv"
+   DEV_TSV=$"data/datasets/$DATASET/datasets/dev.tsv"
 
    # Use echo to first test the commands are those you're expecting...
-   echo "mkdir -p $WORKDIR/$i"
+   mkdir -p $WORKDIR/$i
 
    echo "Acquiring data from '$UPOOL_TSV' using '$ACQ' as the acquisition function"
 
@@ -41,14 +41,14 @@ do
       # Model needs to be 'warm-started' before fine-tuning
       # Randomly sample 10% of data for first round
       
-      echo "python scripts/acquire.py random $UPOOL_TSV $WORKDIR/$i/train-$i.tsv --seed $i"
+      python scripts/acquire.py random $UPOOL_TSV 0.1 $WORKDIR/$i/train-$i.tsv --seed $i
 
    else
       # Active learning rounds
 
       # Pass in --lpool_tsv containing the data we've acquired so far
       I_MINUS_1=$(expr $i - 1)
-      echo "python scripts/acquire.py random $UPOOL_TSV $WORKDIR/$i/train-$i.tsv --lpool_tsv $WORKDIR/$I_MINUS_1/train-$I_MINUS_1.tsv --seed $i"
+      echo "python scripts/acquire.py random $UPOOL_TSV 0.1 $WORKDIR/$i/train-$i.tsv --lpool_tsv $WORKDIR/$I_MINUS_1/train-$I_MINUS_1.tsv --seed $i"
 
    fi
 
