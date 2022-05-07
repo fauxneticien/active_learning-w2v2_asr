@@ -41,14 +41,15 @@ do
       # Model needs to be 'warm-started' before fine-tuning
       # Randomly sample 10% of data for first round
       
-      python scripts/acquire.py random $UPOOL_TSV 0.1 $WORKDIR/$i/train-$i.tsv --seed $i
+      echo "python3 scripts/acquire.py random $UPOOL_TSV 0.1 $WORKDIR/$i/train-$i.tsv --seed $i"
+      python3 scripts/acquire.py random $UPOOL_TSV 0.1 $WORKDIR/$i/train-$i.tsv --seed $i
 
    else
       # Active learning rounds
 
       # Pass in --lpool_tsv containing the data we've acquired so far
       I_MINUS_1=$(expr $i - 1)
-      echo "python scripts/acquire.py random $UPOOL_TSV 0.1 $WORKDIR/$i/train-$i.tsv --lpool_tsv $WORKDIR/$I_MINUS_1/train-$I_MINUS_1.tsv --seed $i"
+      echo "python3 scripts/acquire.py random $UPOOL_TSV 0.1 $WORKDIR/$i/train-$i.tsv --lpool_tsv $WORKDIR/$I_MINUS_1/train-$I_MINUS_1.tsv --seed $i"
 
    fi
 
