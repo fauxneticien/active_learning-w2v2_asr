@@ -54,7 +54,7 @@ do
 
    fi
 
-   echo "python scripts/train_asr-by-w2v2-ft.py $MODEL $WORKDIR $WORKDIR/$i/train-$i.tsv $DEV_TSV"
+   echo "python3 scripts/train_asr-by-w2v2-ft.py $MODEL $WORKDIR $WORKDIR/$i/train-$i.tsv $DEV_TSV"
 
    echo "---"
 done

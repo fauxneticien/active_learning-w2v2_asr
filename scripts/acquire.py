@@ -26,19 +26,11 @@ pool_df = pd.read_csv(args.pool_tsv, sep='\t')
 on = ['path', 'text']
 
 if args.lpool_tsv:
-	# paths = args.lpool_tsv.split('/')
-	# paths[-2] = str(int(paths[-2])+1)
-	# itr_num = int(paths[-1].split('-')[-1][0])
-	# paths[-1] = f'train-{itr_num+1}.tsv'
-	# lpool_path =  '/'.join(paths)
 	lpool_df = pd.read_csv(args.lpool_tsv, sep='\t')
 	upool_df = (pool_df.merge(lpool_df[on], on=on, how='left', indicator=True).query('_merge == "left_only"').drop('_merge', 1))
 
 else:
 	new_lpool_df = pd.DataFrame([], columns=on)
-	# paths = args.newdata_tsv.split('/')
-	# paths[-1] = 'lpool.tsv'
-	# lpool_path = '/'.join(paths)
 	upool_df = pool_df
 	lpool_df = new_lpool_df
 
