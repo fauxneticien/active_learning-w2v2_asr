@@ -26,7 +26,8 @@ parser.add_argument('--checkpoint', help = "Last checkpoint for model inference"
 
 
 args = parser.parse_args()
-np.random.seed(int(args.seed))
+if args.seed:
+	np.random.seed(int(args.seed))
 
 
 # ===== functions to calcualte entropy ===== #
@@ -93,8 +94,8 @@ if args.strategy == 'entropy':
 	for i in range(upool_df.shape[0]):
 		wav_path = upool_df.loc[i].at['path']
 		wav_full_path = os.path.join('../data/datasets/gos-kdl', wav_path)
-		entropy = calculate_entropy(model, processor, wav_full_path)
-		entropy_list.append(entropy)
+		entropy_result = calculate_entropy(model, processor, wav_full_path)
+		entropy_list.append(entropy_result)
 
 	# random for now, change to entropy after
 	# upool_df = upool_df.assign(score=np.random.rand(upool_df.shape[0]))
