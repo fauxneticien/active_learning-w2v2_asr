@@ -125,7 +125,7 @@ training_args = TrainingArguments(
     greater_is_better=False,
     dataloader_num_workers=4,
     report_to = 'wandb',
-    run_name = args.repo_path_or_name.split('/')[-1] + '-' + str(lr) + '-' + 'itr' + args.train_tsv.split('/')[-1].split('-')[1][0] + 'random'
+    run_name = args.repo_path_or_name.split('/')[-1] + '-' + str(lr) + '-' + args.output_dir.split('/')[-1] + '-' + 'itr' + args.train_tsv.split('/')[-1].split('-')[1][0]
 )
 
 trainer = Trainer(

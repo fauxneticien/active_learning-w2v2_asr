@@ -16,13 +16,13 @@ DATASET=${1:?"Error. You must supply a dataset name. ${USAGE}"}
 MODEL=${2:?"Error. You must supply a model repo or path. ${USAGE}"}
 ACQ=${3:?"Error. You must supply an acquisition function. ${USAGE}"}
 
-for i in {1..10}
+for i in {1..9}
 do
    echo "Running iteration $i ..."
 
    # Make directory for outputs
    MODEL_NM=${MODEL##*/}
-   WORKDIR=$"checkpoints/$DATASET/$MODEL_NM"
+   WORKDIR=$"checkpoints/$DATASET/$MODEL_NM/$ACQ"
 
    # Pretend the TSV with all the (labelled) training data
    # is an 'Unlabelled pool (UPOOL)' from which we can ask for
