@@ -55,8 +55,11 @@ def calculate_entropy(model, processor, wav_path):
 	predicted_ids = torch.argmax(logits, dim=-1)
 
 	# filter out special tokens
-	mask = (predicted_ids > 4) & (predicted_ids != 27)
-	indices = torch.nonzero(mask)
+	special_tokens = [value for key, value in processor.tokenizer.get_vocab().items() if key in processor.tokenizer.special_tokens_map.values()]
+	special_tokens = torch.tensor(special_tokens)
+	special_tokens = torch.unsqueeze(special_tokens, 0)
+	is_non_special = ~(torch.isin(predicted_ids, special_tokens))
+	indices = torch.nonzero(is_non_special)
 	logits_filtered = logits[indices[:,0],indices[:,1],:]
 	logits_filtered = torch.unsqueeze(logits_filtered, dim=0)
 
