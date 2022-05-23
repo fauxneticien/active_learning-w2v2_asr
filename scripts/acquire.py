@@ -89,7 +89,7 @@ if args.strategy == 'entropy':
 
 	# obtain the model
 	# args.checkpoint should look something like "checkpoints/gos-kdl/wav2vec2-large/1"
-	if args.checkpoint.split['/'][0] == "checkpoints":
+	if args.checkpoint.split('/')[0] == "checkpoints":
 		model_checkpoint_dir = glob.glob(os.path.join(args.checkpoint, "checkpoint-*"))[0]
 	else:
 		model_checkpoint_dir = args.checkpoint
