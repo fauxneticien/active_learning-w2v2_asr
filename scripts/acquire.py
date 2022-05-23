@@ -88,7 +88,7 @@ if args.strategy == 'random':
 if args.strategy == 'entropy':
 
 	# obtain the model
-	# args.checkpoint should look something like "checkpoints/gos-kdl/wav2vec2-large/1"
+	# args.checkpoint should look something like "checkpoints/cgn/wav2vec2-large/1"
 	if args.checkpoint.split('/')[0] == "checkpoints":
 		model_checkpoint_dir = glob.glob(os.path.join(args.checkpoint, "checkpoint-*"))[0]
 	else:
@@ -103,7 +103,7 @@ if args.strategy == 'entropy':
 	entropy_list = []
 	for i in range(upool_df.shape[0]):
 		wav_path = upool_df.loc[i].at['path']
-		wav_full_path = os.path.join('../data/datasets/gos-kdl', wav_path)
+		wav_full_path = os.path.join('../data/datasets/cgn', wav_path)
 		entropy_result = calculate_entropy(model, processor, wav_full_path)
 		entropy_list.append(entropy_result)
 

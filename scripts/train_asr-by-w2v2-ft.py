@@ -53,9 +53,6 @@ logging.set_verbosity(args.hft_logging)
 # args.output_dir = 'data/asr-temp'
 # args.use_target_vocab = False
 
-# set wandb entity and project names
-wandb.init(entity="cs224s-project", project="huggingface")
-
 os.makedirs(args.output_dir, exist_ok=True)
 
 dataset = dataset_from_dict({
@@ -97,6 +94,9 @@ batch_size = 16
 
 # Learning rate
 lr = 1e-4
+
+# set wandb entity and project names
+wandb.init(entity="cs224s-project", project="huggingface", name=args.repo_path_or_name.split('/')[-1] + '-' + str(lr) + '-' + args.output_dir.split('/')[-1] + '-' + 'itr' + args.train_tsv.split('/')[-1].split('-')[1][0])
 
 training_args = TrainingArguments(
     output_dir=args.output_dir,
