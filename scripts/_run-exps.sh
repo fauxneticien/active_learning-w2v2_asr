@@ -41,8 +41,8 @@ do
       # Model needs to be 'warm-started' before fine-tuning
       # Randomly sample 10% of data for first round
       
-      echo "python3 scripts/acquire.py $ACQ $UPOOL_TSV 0.15 $WORKDIR/$i/train-$i.tsv --seed $i --checkpoint $MODEL"
-      python3 scripts/acquire.py $ACQ $UPOOL_TSV 0.15 $WORKDIR/$i/train-$i.tsv --seed $i --checkpoint $MODEL
+      echo "python3 scripts/acquire.py random $UPOOL_TSV 0.15 $WORKDIR/$i/train-$i.tsv --seed $i"
+      python3 scripts/acquire.py random $UPOOL_TSV 0.15 $WORKDIR/$i/train-$i.tsv --seed $i
 
    else
       # Active learning rounds
