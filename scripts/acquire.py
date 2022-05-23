@@ -71,7 +71,7 @@ def calculate_entropy(model, processor, wav_path):
 # ===== acquire training data ===== #
 
 pool_df = pd.read_csv(args.pool_tsv, sep='\t')
-on = ['path', 'text']
+on = ['path', 'sentence']
 
 if args.lpool_tsv:
 	lpool_df = pd.read_csv(args.lpool_tsv, sep='\t')
