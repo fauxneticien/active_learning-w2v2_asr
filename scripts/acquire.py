@@ -5,6 +5,7 @@ import os
 import numpy as np
 from argparse import ArgumentParser
 from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
+import glob
 
 # ===== parse arguments ===== # 
 
@@ -67,7 +68,7 @@ def calculate_entropy(model, processor, wav_path):
 	return np.mean(experimental_entropy_filtered.numpy())
 
 
-# ===== acquire training date ===== #
+# ===== acquire training data ===== #
 
 pool_df = pd.read_csv(args.pool_tsv, sep='\t')
 on = ['path', 'text']
@@ -87,8 +88,14 @@ if args.strategy == 'random':
 if args.strategy == 'entropy':
 
 	# obtain the model
+	# args.checkpoint should look something like "checkpoints/gos-kdl/wav2vec2-large/1"
+	if args.checkpoint.split['/'][0] == "checkpoints":
+		model_checkpoint_dir = glob.glob(os.path.join(args.checkpoint, "checkpoint-*"))[0]
+	else:
+		model_checkpoint_dir = args.checkpoint
+
 	processor = Wav2Vec2Processor.from_pretrained(args.checkpoint)
-	model = Wav2Vec2ForCTC.from_pretrained(args.checkpoint)
+	model = Wav2Vec2ForCTC.from_pretrained(model_checkpoint_dir)
 	if torch.cuda.is_available():
 			model.to("cuda")
 
