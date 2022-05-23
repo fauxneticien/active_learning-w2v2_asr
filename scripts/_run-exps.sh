@@ -58,7 +58,7 @@ do
    python3 scripts/train_asr-by-w2v2-ft.py $MODEL $WORKDIR/$i $WORKDIR/$i/train-$i.tsv $DEV_TSV
 
    echo "python3 script/clean-checkpoints.py $WORKDIR/$i"
-   python3 script/clean-checkpoints.py $WORKDIR/$i
+   python3 scripts/clean-checkpoints.py $WORKDIR/$i
 
    echo "---"
 done

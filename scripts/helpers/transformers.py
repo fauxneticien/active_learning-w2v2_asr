@@ -3,7 +3,9 @@ from transformers import TrainerCallback
 from typing import Optional
 
 from transformers.trainer_utils import IntervalStrategy
-from transformers.utils import logger
+from transformers.utils import logging
+
+logger = logging.get_logger(__name__)
 
 class EarlyStoppingCallback(TrainerCallback):
     """
