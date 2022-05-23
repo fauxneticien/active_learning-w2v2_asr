@@ -16,7 +16,7 @@ DATASET=${1:?"Error. You must supply a dataset name. ${USAGE}"}
 MODEL=${2:?"Error. You must supply a model repo or path. ${USAGE}"}
 ACQ=${3:?"Error. You must supply an acquisition function. ${USAGE}"}
 
-for i in {1..9}
+for i in {1..7}
 do
    echo "Running iteration $i ..."
 
