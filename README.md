@@ -38,11 +38,15 @@ You will now have the following directory structure.
 5. Run one of the following commands at the root level.
 
 ```
+# CZ
 ./scripts/_run-exps.sh cgn facebook/wav2vec2-large random   
 
+# NS
 ./scripts/_run-exps.sh cgn facebook/wav2vec2-large entropy   
 
+# MB
 ./scripts/_run-exps.sh cgn GroNLP/wav2vec2-dutch-large random   
 
+# MX
 ./scripts/_run-exps.sh cgn GroNLP/wav2vec2-dutch-large entropy   
 ```
