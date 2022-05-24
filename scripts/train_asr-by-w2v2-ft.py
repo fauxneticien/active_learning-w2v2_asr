@@ -65,7 +65,8 @@ w2v2_config = {
         "return_attention_mask" : True
     },
     "model_kwargs" : {
-        "mask_time_prob" : 0,
+        "mask_time_prob" : 0.075,
+        "mask_feature_prob" : 0.008,
         "gradient_checkpointing" : True,
         "ctc_loss_reduction" : "mean"
     }
@@ -93,10 +94,15 @@ batch_size = 16
 # sel_steps = int(math.ceil(len(dataset['train']) / batch_size) * eps_b_eval)
 
 # Learning rate
-lr = 1e-4
+lr = 1e-5
 
 # set wandb entity and project names
-wandb.init(entity="cs224s-project", project="huggingface", name=args.repo_path_or_name.split('/')[-1] + '-' + str(lr) + '-' + args.output_dir.split('/')[-2] + '-' + 'itr' + args.train_tsv.split('/')[-1].split('-')[1][0])
+base_model = args.repo_path_or_name.split('/')[-1]
+acq_type   = args.output_dir.split('/')[-2]
+iteration  = args.train_tsv.split('/')[-1].split('-')[1][0]
+run_name   = f"{base_model}-{str(lr)}-{acq_type}-itr{iteration}"
+
+wandb.init(entity="cs224s-project", project="main-exps", name=run_name)
 
 training_args = TrainingArguments(
     output_dir=args.output_dir,
@@ -110,8 +116,8 @@ training_args = TrainingArguments(
     fp16=False, # True could make results worse but computing faster as floats are half precision
     # seed=7135,
     seed=4892,
-    save_steps=50,
-    eval_steps=50,
+    save_steps=100,
+    eval_steps=100,
     logging_steps=50,
     learning_rate=lr,
     # Warm up: 500 steps or 10% of total optimisation steps
@@ -129,7 +135,7 @@ training_args = TrainingArguments(
     greater_is_better=False,
     dataloader_num_workers=4,
     report_to = 'wandb',
-    run_name = args.repo_path_or_name.split('/')[-1] + '-' + str(lr) + '-' + args.output_dir.split('/')[-2] + '-' + 'itr' + args.train_tsv.split('/')[-1].split('-')[1][0]
+    run_name = run_name
 )
 
 trainer = Trainer(
@@ -140,7 +146,7 @@ trainer = Trainer(
     train_dataset=dataset['train'],
     eval_dataset=dataset['eval'],
     tokenizer=processor.feature_extractor,
-    callbacks = [EarlyStoppingCallback(early_stopping_patience=4, min_optim_steps=500)]
+    callbacks=[ EarlyStoppingCallback(early_stopping_patience=4, min_optim_steps=600) ]
 )
 
 print("Training model ...")

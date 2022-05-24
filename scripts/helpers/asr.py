@@ -178,8 +178,8 @@ def get_metrics_computer(processor):
         wer = wer_metric.compute(predictions=pred_str, references=label_str)
         cer = cer_metric.compute(predictions=pred_str, references=label_str)
 
-        # return {"wer": wer, "cer": cer}
-        return {"wer": wer}
+        return {"wer": wer, "cer": cer}
+        # return {"wer": wer}
 
     return compute_metrics
 
