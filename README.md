@@ -18,16 +18,10 @@ git clone https://github.com/fauxneticien/active_learning-w2v2_asr.git
 
 ```
 ./scripts/_run-exps.sh cgn facebook/wav2vec2-large random   
-```
 
-```
 ./scripts/_run-exps.sh cgn facebook/wav2vec2-large entropy   
-```
 
-```
 ./scripts/_run-exps.sh cgn GroNLP/wav2vec2-dutch-large random   
-```
 
-```
 ./scripts/_run-exps.sh cgn GroNLP/wav2vec2-dutch-large entropy   
 ```
