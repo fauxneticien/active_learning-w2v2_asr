@@ -49,8 +49,12 @@ def calculate_entropy(model, processor, wav_path):
 	
 	input_values = processor(wavform, return_tensors="pt", padding="longest", sampling_rate=16_000).input_values
 
+	if torch.cuda.is_available():
+		input_values.to("cuda")
+
 	with torch.no_grad():
 		logits = model(input_values).logits
+	logits.to("cpu")
  
 	# take argmax and decode
 	predicted_ids = torch.argmax(logits, dim=-1)
@@ -96,8 +100,8 @@ if args.strategy == 'entropy':
 
 	processor = Wav2Vec2Processor.from_pretrained(args.checkpoint)
 	model = Wav2Vec2ForCTC.from_pretrained(model_checkpoint_dir)
-	# if torch.cuda.is_available():
-	# 		model.to("cuda")
+	if torch.cuda.is_available():
+		model.to("cuda")
 
 	# loop through wav files in upool, inference, and get entropy value
 	entropy_list = []
