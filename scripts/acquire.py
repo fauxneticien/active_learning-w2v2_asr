@@ -50,11 +50,11 @@ def calculate_entropy(model, processor, wav_path):
 	input_values = processor(wavform, return_tensors="pt", padding="longest", sampling_rate=16_000).input_values
 
 	if torch.cuda.is_available():
-		input_values.to("cuda")
+		input_values = input_values.cuda()
 
 	with torch.no_grad():
 		logits = model(input_values).logits
-	logits.to("cpu")
+	logits = logits.cpu()
  
 	# take argmax and decode
 	predicted_ids = torch.argmax(logits, dim=-1)
