@@ -16,7 +16,7 @@ git clone https://github.com/fauxneticien/active_learning-w2v2_asr.git
 
 You will now have the following directory structure.
 
-.
+    .
     ├── data/                       
         ├── datasets/                 
             ├── cgn/  
@@ -29,7 +29,7 @@ You will now have the following directory structure.
         ├── helpers/
           ├── asr.py
           ├── transformers.py
-        ├── <div>_</div>run-exps.sh
+        ├── _run-exps.sh
         ├── acquire.py
         ├── clean-checkpoints.py
         ├── asr.py
