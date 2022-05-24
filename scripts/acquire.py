@@ -96,16 +96,14 @@ if args.strategy == 'entropy':
 
 	processor = Wav2Vec2Processor.from_pretrained(args.checkpoint)
 	model = Wav2Vec2ForCTC.from_pretrained(model_checkpoint_dir)
-	if torch.cuda.is_available():
-			model.to("cuda")
+	# if torch.cuda.is_available():
+	# 		model.to("cuda")
 
 	# loop through wav files in upool, inference, and get entropy value
 	entropy_list = []
-	for i in range(upool_df.shape[0]):
-		wav_path = upool_df.loc[i].at['path']
-		# wav_full_path = os.path.join('../data/datasets/cgn', wav_path)
-		wav_full_path = wav_path
-		entropy_result = calculate_entropy(model, processor, wav_full_path)
+	path_list = upool_df['path'].tolist()
+	for wav_path in path_list:
+		entropy_result = calculate_entropy(model, processor, wav_path)
 		entropy_list.append(entropy_result)
 
 	# random for now, change to entropy after
