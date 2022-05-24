@@ -32,7 +32,6 @@ You will now have the following directory structure.
         ├── _run-exps.sh
         ├── acquire.py
         ├── clean-checkpoints.py
-        ├── asr.py
         ├── train_asr-by-w2v2-ft.py
     └── wav/                     
 
