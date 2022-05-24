@@ -96,7 +96,7 @@ batch_size = 16
 lr = 1e-4
 
 # set wandb entity and project names
-wandb.init(entity="cs224s-project", project="huggingface", name=args.repo_path_or_name.split('/')[-1] + '-' + str(lr) + '-' + args.output_dir.split('/')[-1] + '-' + 'itr' + args.train_tsv.split('/')[-1].split('-')[1][0])
+wandb.init(entity="cs224s-project", project="huggingface", name=args.repo_path_or_name.split('/')[-1] + '-' + str(lr) + '-' + args.output_dir.split('/')[-2] + '-' + 'itr' + args.train_tsv.split('/')[-1].split('-')[1][0])
 
 training_args = TrainingArguments(
     output_dir=args.output_dir,
