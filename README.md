@@ -14,6 +14,28 @@ git clone https://github.com/fauxneticien/active_learning-w2v2_asr.git
 
 4. Copy `./data/datasets/cgn/wav` to `./wav`
 
+You will now have the following directory structure.
+
+.
+    ├── data/                       
+        ├── datasets/                 
+            ├── cgn/  
+              ├── datasets/
+                ├── train.tsv
+                ├── dev.tsv
+                ├── test.tsv
+              ├── wav/
+    ├── scripts/  
+        ├── helpers/
+          ├── asr.py
+          ├── transformers.py
+        ├── <div>_</div>run-exps.sh
+        ├── acquire.py
+        ├── clean-checkpoints.py
+        ├── asr.py
+        ├── train_asr-by-w2v2-ft.py
+    └── wav/                     
+
 5. Run one of the following commands at the root level.
 
 ```
