@@ -49,8 +49,8 @@ do
 
       # Pass in --lpool_tsv containing the data we've acquired so far
       I_MINUS_1=$(expr $i - 1)
-      echo "python3 scripts/acquire.py $ACQ $UPOOL_TSV 0.15 $WORKDIR/$i/train-$i.tsv --lpool_tsv $WORKDIR/$I_MINUS_1/train-$I_MINUS_1.tsv --seed $i --checkpoint $WORKDIR/$i"
-      python3 scripts/acquire.py $ACQ $UPOOL_TSV 0.15 $WORKDIR/$i/train-$i.tsv --lpool_tsv $WORKDIR/$I_MINUS_1/train-$I_MINUS_1.tsv --seed $i --checkpoint $WORKDIR/$i
+      echo "python3 scripts/acquire.py $ACQ $UPOOL_TSV 0.15 $WORKDIR/$i/train-$i.tsv --lpool_tsv $WORKDIR/$I_MINUS_1/train-$I_MINUS_1.tsv --seed $i --checkpoint $WORKDIR/$I_MINUS_1"
+      python3 scripts/acquire.py $ACQ $UPOOL_TSV 0.15 $WORKDIR/$i/train-$i.tsv --lpool_tsv $WORKDIR/$I_MINUS_1/train-$I_MINUS_1.tsv --seed $i --checkpoint $WORKDIR/$I_MINUS_1
 
    fi
 

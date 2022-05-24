@@ -103,7 +103,8 @@ if args.strategy == 'entropy':
 	entropy_list = []
 	for i in range(upool_df.shape[0]):
 		wav_path = upool_df.loc[i].at['path']
-		wav_full_path = os.path.join('../data/datasets/cgn', wav_path)
+		# wav_full_path = os.path.join('../data/datasets/cgn', wav_path)
+		wav_full_path = wav_path
 		entropy_result = calculate_entropy(model, processor, wav_full_path)
 		entropy_list.append(entropy_result)
 
