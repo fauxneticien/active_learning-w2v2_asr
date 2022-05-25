@@ -231,12 +231,12 @@ def configure_w2v2_for_training(dataset, args, vocab_dict, w2v2_config={}):
 
     return model, processor
 
-def configure_w2v2_for_inference(repo_path_or_name, cache_dir="tmp/"):
+def configure_w2v2_for_inference(repo_path_or_name):
 
     if os.path.isdir(repo_path_or_name):
         cp_path   = glob.glob(os.path.join(repo_path_or_name, 'checkpoint-*'))[0]
-        model     = Wav2Vec2ForCTC.from_pretrained(cp_path, cache_dir=cache_dir)
-        processor = AutoProcessor.from_pretrained(repo_path_or_name, cache_dir=cache_dir)
+        model     = Wav2Vec2ForCTC.from_pretrained(cp_path)
+        processor = AutoProcessor.from_pretrained(repo_path_or_name)
     else:
         model     = Wav2Vec2ForCTC.from_pretrained(repo_path_or_name)
         processor = AutoProcessor.from_pretrained(repo_path_or_name)
