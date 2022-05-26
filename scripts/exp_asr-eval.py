@@ -29,7 +29,7 @@ for model_name_dir in model_name_dirs:
     for acq_name_dir in acq_name_dirs:
         itr_name_dirs = glob.glob(os.path.join(acq_name_dir, '*'))
         for itr_name_dir in itr_name_dirs:
-            EVAL_MODELS_DATASETS.add((itr_name_dir, TEST_SET_PATH))
+            EVAL_MODELS_DATASETS.append((itr_name_dir, TEST_SET_PATH))
 
 EVAL_RESULTS = []
 
@@ -56,7 +56,7 @@ for model_path, testset_path in EVAL_MODELS_DATASETS:
     test_ds = test_ds.map(make_all_lowercase)
 
     EVAL_RESULTS.append({
-        "model" : os.path.basename(model_path),
+        "model" : '-'.join(model_path.split('/')[2:]),
         "model_lm" : type(processor).__name__ == 'Wav2Vec2ProcessorWithLM',
         "testset" : os.path.basename(testset_path),
         "wer" : round(wer(test_ds['sentence'], test_ds['transcription']), 3),
