@@ -6,6 +6,7 @@ from datasets import Dataset
 from helpers.asr import configure_w2v2_for_inference
 from jiwer import wer, cer
 import glob
+import re
 
 # EVAL_MODELS_DATASETS = [
 #     # Evaluation on the same test set using model trained using different amounts of data
@@ -43,6 +44,36 @@ def make_all_lowercase(batch):
 
     return batch
 
+def remove_special_characters(batch):
+    chars_to_ignore_regex = '[\,\.\!\;\:\"\“\%\”\�136]'
+    batch["sentence"] = re.sub(chars_to_ignore_regex, '', batch["sentence"])
+
+    # for ft on CGN subset
+    batch["sentence"] = re.sub('[Á]', 'A', batch["sentence"])
+    batch["sentence"] = re.sub('[Ä]', 'A', batch["sentence"])
+    batch["sentence"] = re.sub('[Å]', 'A', batch["sentence"])
+    batch["sentence"] = re.sub('[Ç]', 'C', batch["sentence"])
+    batch["sentence"] = re.sub('[Ê]', 'E', batch["sentence"])
+    batch["sentence"] = re.sub('[Ï]', 'I', batch["sentence"])
+    batch["sentence"] = re.sub('[Ô]', 'O', batch["sentence"])
+    batch["sentence"] = re.sub('[Ú]', 'U', batch["sentence"])
+    batch["sentence"] = re.sub('[Ü]', 'U', batch["sentence"])
+
+    batch["transcription"] = re.sub(chars_to_ignore_regex, '', batch["transcription"])
+
+    # for ft on CGN subset
+    batch["transcription"] = re.sub('[Á]', 'A', batch["transcription"])
+    batch["transcription"] = re.sub('[Ä]', 'A', batch["transcription"])
+    batch["transcription"] = re.sub('[Å]', 'A', batch["transcription"])
+    batch["transcription"] = re.sub('[Ç]', 'C', batch["transcription"])
+    batch["transcription"] = re.sub('[Ê]', 'E', batch["transcription"])
+    batch["transcription"] = re.sub('[Ï]', 'I', batch["transcription"])
+    batch["transcription"] = re.sub('[Ô]', 'O', batch["transcription"])
+    batch["transcription"] = re.sub('[Ú]', 'U', batch["transcription"])
+    batch["transcription"] = re.sub('[Ü]', 'U', batch["transcription"])
+    
+    return batch
+
 for model_path, testset_path in EVAL_MODELS_DATASETS:
 
     print(f"Reading in data from {testset_path} ...")
@@ -53,7 +84,7 @@ for model_path, testset_path in EVAL_MODELS_DATASETS:
 
     print(f"Obtaining predictions using model from {model_path} ...")
     test_ds = test_ds.map(transcribe_speech, remove_columns=["speech"])
-    test_ds = test_ds.map(make_all_lowercase)
+    test_ds = test_ds.map(remove_special_characters)
 
     EVAL_RESULTS.append({
         "model" : '-'.join(model_path.split('/')[2:]),
