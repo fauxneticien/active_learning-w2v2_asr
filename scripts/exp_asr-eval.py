@@ -108,6 +108,7 @@ for model_path, testset_path in EVAL_MODELS_DATASETS:
     })
 
 results_df = pd.DataFrame(EVAL_RESULTS)
-results_df.to_csv("test_results.csv", index=False)
+output_file_name = "test_results.csv" if "test" in args.eval_set.split('/')[-1] else "dev_results.csv"
+results_df.to_csv(output_file_name, index=False)
 
 print("Results written to test_results")
