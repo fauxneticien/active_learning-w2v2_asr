@@ -1,3 +1,5 @@
+# Example command: 
+# Python scripts/exp_asr-eval.py data/datasets/cgn/datasets/test.tsv
 import os
 import pandas as pd
 import torchaudio
@@ -7,6 +9,7 @@ from helpers.asr import configure_w2v2_for_inference
 from jiwer import wer, cer
 import glob
 import re
+from argparse import ArgumentParser
 
 # EVAL_MODELS_DATASETS = [
 #     # Evaluation on the same test set using model trained using different amounts of data
@@ -20,8 +23,18 @@ import re
 #     ("data/exps/asr/checkpoints/train-01", "data/exps/asr/datasets/test.tsv")
 # ]
 
+parser = ArgumentParser(
+    prog='exp_asr-eval',
+    description='Evaluate model checkpoints on dev or test set',
+)
+
+parser.add_argument('eval_set', help = "path to the evaluation dataset. e.g. data/datasets/cgn/datasets/test.tsv")
+
+args = parser.parse_args()
+
 EVAL_MODELS_DATASETS = []
-TEST_SET_PATH = "data/datasets/cgn/datasets/test.tsv"
+# TEST_SET_PATH = "data/datasets/cgn/datasets/test.tsv"
+TEST_SET_PATH = args.eval_set
 
 parent_dir = "checkpoints/cgn"
 model_name_dirs = glob.glob(os.path.join(parent_dir, '*'))
